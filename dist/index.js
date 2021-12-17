@@ -12872,7 +12872,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _src_components_EmoteInput__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/components/EmoteInput */ "./src/src/components/EmoteInput.vue");
 
+ // Create the emote-input tag
 
+var div = document.createElement("div");
+div.setAttribute('id', 'emote-autocomplete');
+var input = document.createElement('emote-input');
+div.appendChild(input);
+document.body.appendChild(div);
 new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: "#emote-autocomplete",
   components: {
