@@ -1,5 +1,5 @@
 import Vue from "vue";
-import EmoteInput from "./src/components/EmoteInput";
+import EmoteInput from "./components/EmoteInput";
 
 // Create the emote-input tag
 let div = document.createElement("div");
