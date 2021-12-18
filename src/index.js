@@ -1,9 +1,9 @@
 import Vue from "vue";
 import EmoteInput from "./components/EmoteInput";
 
-// Wait 10 seconds for beatsense to load properly
+// Wait 8 seconds for beatsense to load properly
 // TODO : how to get a "go" from beatsense?
-setTimeout(bootApp, 10000);
+setTimeout(bootApp, 8000);
 
 /**
  * Starts the app
