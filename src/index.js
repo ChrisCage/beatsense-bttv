@@ -30,6 +30,32 @@ function bootApp(){
 
         components: {
             'emote-input': EmoteInput
+        },
+
+        methods: {
+            /**
+             * Autoredeems beats
+             */
+            autoRedeem: async function(){
+                var a = angular.element(document.body).injector().get("beatsRewardTimerService"),
+                b = angular.element(document.body).injector().get("beatsService"),
+                c = await a.start(),
+                d = c.timeLeft,
+                e = function (a) {
+                    return new Promise(function (b) {
+                        return setTimeout(b, a);
+                    });
+                },
+                f = async function () {
+                    var c = await a.claimReward();
+                    (d = c.timeLeft), await b.rewardHasBeenGiven();
+                };
+                for (console.log("starting auto-redeem"); ; ) console.log("waiting for " + d / 60 + " minutes before next redemption"), await e(1e3 * (d + 5)), await f();
+            }
+        },
+
+        mounted: function(){
+            this.autoRedeem();
         }
 
     });
