@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-select :options="options" label="title">
+        <v-select :options="options" label="title" v-on:option:selected="sendEmote">
             <template v-slot:option="option">
                 <img :src="option.image.sm"/>
                 {{ option.title }}
@@ -104,6 +104,18 @@ export default {
             this.options.push(option);
         },
 
+        /**
+         * Sends the emote in beatsense chat
+         */
+        sendEmote: function(emote){
+            let ng_scope = angular.element(document.body).injector().get("$rootScope");
+            ng_scope.$broadcast("chat:send:gif", {
+                title: emote.title,
+                url: emote.image.xl,
+                width: 112,
+                height: 112
+            });
+        }
     },
 
     created: function () {
