@@ -3052,7 +3052,11 @@ var render = function () {
     "div",
     [
       _c("v-select", {
-        attrs: { options: _vm.options, label: "title" },
+        attrs: {
+          options: _vm.options,
+          label: "title",
+          placeholder: "BTTV / FFZ emote",
+        },
         on: { "option:selected": _vm.sendEmote },
         scopedSlots: _vm._u([
           {
@@ -15340,9 +15344,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var div = document.createElement("div");
 div.setAttribute('id', 'emote-autocomplete');
+div.style.marginTop = "2em";
 var input = document.createElement('emote-input');
+input.style.width = "100%";
 div.appendChild(input);
-document.body.appendChild(div); // Boot the app
+document.querySelector('#room-chat-holder').after(div); // Boot the app
 
 new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: "#emote-autocomplete",

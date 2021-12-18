@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-select :options="options" label="title" v-on:option:selected="sendEmote">
+        <v-select :options="options" label="title" v-on:option:selected="sendEmote" placeholder="BTTV / FFZ emote">
             <template v-slot:option="option">
                 <img :src="option.image.sm"/>
                 {{ option.title }}
