@@ -2296,6 +2296,45 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
 
     /**
+     * Fetches emotes from FFZ
+     * @param channels_ids
+     */
+    fetch7TV: function fetch7TV(channels_ids) {
+      var _this3 = this;
+
+      for (var i = 0; i < channels_ids.length; i++) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default().get('https://api.7tv.app/v2/users/' + channels_ids[i] + '/emotes').then(function (_ref3) {
+          var data = _ref3.data;
+
+          for (var j = 0; j < data.length; j++) {
+            _this3.addOption7TV(data[j]);
+          }
+        });
+      }
+    },
+
+    /**
+     * Adds a ffz emote to the option list
+     * @param emote
+     */
+    addOption7TV: function addOption7TV(emote) {
+      // Make sure the emote id is unique
+      var exists = this.options.some(function (code) {
+        return code.id === emote.id;
+      });
+      if (exists) return;
+      var option = {
+        id: emote.id,
+        title: emote.name,
+        image: {
+          sm: emote.urls[0][1],
+          xl: emote.urls[3][1]
+        }
+      };
+      this.options.push(option);
+    },
+
+    /**
      * Sends the emote in beatsense chat
      */
     sendEmote: function sendEmote(emote) {
@@ -16126,10 +16165,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
- // Wait 10 seconds for beatsense to load properly
+ // Wait 8 seconds for beatsense to load properly
 // TODO : how to get a "go" from beatsense?
 
-setTimeout(bootApp, 10000);
+setTimeout(bootApp, 8000);
 /**
  * Starts the app
  */
