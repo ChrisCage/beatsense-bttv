@@ -51,6 +51,7 @@ export default {
          * @param emote
          */
         addOptionBTTV: function(emote){
+            // Make sure the emote id is unique
             let exists = this.options.some(code => code.id === emote.id);
             if (exists) return;
 
@@ -72,15 +73,35 @@ export default {
          */
         fetchFFZ: function (channels_ids) {
             for (let i = 0; i < channels_ids.length; i++) {
-                // axios.get('https://api.frankerfacez.com/v1/room/id/'+channels_ids[i]).then(({data}) => {
-                //     console.log(data)
-                    // ['channelEmotes', 'sharedEmotes'].forEach((type) => {
-                    //     for(let j = 0; j < data[type].length; j++){
-                    //         this.addOptionBTTV(data[type][j]);
-                    //     }
-                    // });
-                // });
+                axios.get('https://api.frankerfacez.com/v1/room/id/'+channels_ids[i]).then(({data}) => {
+                    for (const [key, set] of Object.entries(data.sets)) {
+                        for(let j = 0; j < set.emoticons.length; j++){
+                            this.addOptionFFZ(set.emoticons[j]);
+                        }
+                    }
+                });
             }
+        },
+
+        /**
+         * Adds a ffz emote to the option list
+         * @param emote
+         */
+        addOptionFFZ: function(emote){
+            // Make sure the emote id is unique
+            let exists = this.options.some(code => code.id === emote.id);
+            if (exists) return;
+
+            let option = {
+                id: emote.id,
+                title: emote.name,
+                image: {
+                    sm: emote.urls[1],
+                    xl: emote.urls[4]
+                }
+            }
+
+            this.options.push(option);
         },
 
     },

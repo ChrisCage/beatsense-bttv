@@ -2223,6 +2223,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * @param emote
      */
     addOptionBTTV: function addOptionBTTV(emote) {
+      // Make sure the emote id is unique
       var exists = this.options.some(function (code) {
         return code.id === emote.id;
       });
@@ -2243,23 +2244,52 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * @param channels_ids
      */
     fetchFFZ: function fetchFFZ(channels_ids) {
-      for (var i = 0; i < channels_ids.length; i++) {// axios.get('https://api.frankerfacez.com/v1/room/id/'+channels_ids[i]).then(({data}) => {
-        //     console.log(data)
-        // ['channelEmotes', 'sharedEmotes'].forEach((type) => {
-        //     for(let j = 0; j < data[type].length; j++){
-        //         this.addOptionBTTV(data[type][j]);
-        //     }
-        // });
-        // });
+      var _this2 = this;
+
+      for (var i = 0; i < channels_ids.length; i++) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default().get('https://api.frankerfacez.com/v1/room/id/' + channels_ids[i]).then(function (_ref2) {
+          var data = _ref2.data;
+
+          for (var _i = 0, _Object$entries = Object.entries(data.sets); _i < _Object$entries.length; _i++) {
+            var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+                key = _Object$entries$_i[0],
+                set = _Object$entries$_i[1];
+
+            for (var j = 0; j < set.emoticons.length; j++) {
+              _this2.addOptionFFZ(set.emoticons[j]);
+            }
+          }
+        });
       }
+    },
+
+    /**
+     * Adds a ffz emote to the option list
+     * @param emote
+     */
+    addOptionFFZ: function addOptionFFZ(emote) {
+      // Make sure the emote id is unique
+      var exists = this.options.some(function (code) {
+        return code.id === emote.id;
+      });
+      if (exists) return;
+      var option = {
+        id: emote.id,
+        title: emote.name,
+        image: {
+          sm: emote.urls[1],
+          xl: emote.urls[4]
+        }
+      };
+      this.options.push(option);
     }
   },
   created: function created() {
     // Fetch the emotes
-    for (var _i = 0, _Object$entries = Object.entries(this.$root.channels); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          type = _Object$entries$_i[0],
-          channels_ids = _Object$entries$_i[1];
+    for (var _i2 = 0, _Object$entries2 = Object.entries(this.$root.channels); _i2 < _Object$entries2.length; _i2++) {
+      var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+          type = _Object$entries2$_i[0],
+          channels_ids = _Object$entries2$_i[1];
 
       var method = 'fetch' + type.toUpperCase();
 
