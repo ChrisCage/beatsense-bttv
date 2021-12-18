@@ -3,7 +3,7 @@
         <v-select :options="options" label="title" v-on:option:selected="sendEmote" placeholder="BTTV / FFZ emote">
             <template v-slot:option="option">
                 <img :src="option.image.sm"/>
-                {{ option.title }}
+                <span class="emote-title">{{ option.title }}</span>
             </template>
         </v-select>
     </div>
@@ -134,4 +134,11 @@ export default {
 
 <style scoped>
 @import '~vue-select/dist/vue-select.css';
+.v-select{
+    background-color: #FFF;
+}
+
+.emote-title{
+    margin-left: 1em;
+}
 </style>

@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_1_node_modules_vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.v-select[data-v-6b474262]{\n    background-color: #FFF;\n}\n.emote-title[data-v-6b474262]{\n    margin-left: 1em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3064,7 +3064,10 @@ var render = function () {
             fn: function (option) {
               return [
                 _c("img", { attrs: { src: option.image.sm } }),
-                _vm._v("\n            " + _vm._s(option.title) + "\n        "),
+                _vm._v(" "),
+                _c("span", { staticClass: "emote-title" }, [
+                  _vm._v(_vm._s(option.title)),
+                ]),
               ]
             },
           },
@@ -15340,25 +15343,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _components_EmoteInput__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/EmoteInput */ "./src/components/EmoteInput.vue");
 
- // Create the emote-input tag
+ // Wait 10 seconds for beatsense to load properly
+// TODO : how to get a "go" from beatsense?
 
-var div = document.createElement("div");
-div.setAttribute('id', 'emote-autocomplete');
-div.style.marginTop = "2em";
-var input = document.createElement('emote-input');
-input.style.width = "100%";
-div.appendChild(input);
-document.querySelector('#room-chat-holder').after(div); // Boot the app
+setTimeout(bootApp, 10000);
+/**
+ * Starts the app
+ */
 
-new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  el: "#emote-autocomplete",
-  data: {
-    channels: channels
-  },
-  components: {
-    'emote-input': _components_EmoteInput__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
-});
+function bootApp() {
+  // Create the emote-input tag
+  var div = document.createElement("div");
+  div.setAttribute('id', 'emote-autocomplete');
+  div.style.marginTop = "2em";
+  var input = document.createElement('emote-input');
+  input.style.width = "100%";
+  div.appendChild(input);
+  document.querySelector('my-room-chat').append(div); // Boot the app
+
+  new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
+    el: "#emote-autocomplete",
+    data: {
+      channels: channels
+    },
+    components: {
+      'emote-input': _components_EmoteInput__WEBPACK_IMPORTED_MODULE_0__["default"]
+    }
+  });
+}
 })();
 
 /******/ })()

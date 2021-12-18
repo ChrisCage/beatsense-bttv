@@ -1,26 +1,37 @@
 import Vue from "vue";
 import EmoteInput from "./components/EmoteInput";
 
-// Create the emote-input tag
-let div = document.createElement("div");
-div.setAttribute('id', 'emote-autocomplete');
-div.style.marginTop = "2em";
-let input = document.createElement('emote-input');
-input.style.width = "100%";
-div.appendChild(input);
-document.querySelector('#room-chat-holder').after(div);
+// Wait 10 seconds for beatsense to load properly
+// TODO : how to get a "go" from beatsense?
+setTimeout(bootApp, 10000);
 
-// Boot the app
-new Vue({
+/**
+ * Starts the app
+ */
+function bootApp(){
 
-    el: "#emote-autocomplete",
+    // Create the emote-input tag
+    let div = document.createElement("div");
+    div.setAttribute('id', 'emote-autocomplete');
+    div.style.marginTop = "2em";
+    let input = document.createElement('emote-input');
+    input.style.width = "100%";
+    div.appendChild(input);
+    document.querySelector('my-room-chat').append(div);
 
-    data: {
-        channels: channels
-    },
+    // Boot the app
+    new Vue({
 
-    components: {
-        'emote-input': EmoteInput
-    }
+        el: "#emote-autocomplete",
 
-});
+        data: {
+            channels: channels
+        },
+
+        components: {
+            'emote-input': EmoteInput
+        }
+
+    });
+
+}
